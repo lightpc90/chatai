@@ -1,101 +1,85 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import Link from 'next/link';
+import { TypeAnimation } from 'react-type-animation';
+import { useState } from 'react';
+import Image from 'next/image';
+
+const Home = () => {
+    const [typingStatus, setTypingStatus] = useState('')
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <div className="home">
+      <Image  src="/orbital.png" alt="home image" className="orbital" width={400} height={400} />
+      <div className="left">
+        <h1>Voltz AI</h1>
+        <h2>Supercharge your creativity and productivity</h2>
+        <h3>
+          jfjjfifii rfro roeioeieoo oroo eoeoe oeoeo ourur ororo wsuuue rororor
+          jfsiie eir wowowd ddd wwwe euue ror oeoeoe oririr.
+        </h3>
+        <Link href="/dashboard">Get Started</Link>
+      </div>
+      <div className="right">
+        <div className="imgContainer">
+          <div className="bgContainer">
+            <div className="bg"></div>
+          </div>
+          <Image src="/bot.png" alt="bot" className="bot image" width={200} height={200} />
+          {/* animated chat */}
+          <div className="chat text-white">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={
+                typingStatus === "human1"
+                  ? `/human1.jpeg`
+                  : typingStatus === `human2`
+                  ? `/human2.jpeg`
+                  : `/bot.png`
+              }
+              alt="bot image"
+              width={400} height={400}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <TypeAnimation
+              sequence={[
+                // Same substring at the start will only be typed out once, initially
+                "Human1: We produce food for Mice",
+                1000,
+                () => {
+                  setTypingStatus("human2");
+                },
+                "Human2: We produce food for Hamsters",
+                1000,
+                () => {
+                  setTypingStatus("human");
+                },
+                "Human: We produce food for Guinea Pigs",
+                1000,
+                () => {
+                  setTypingStatus("bot");
+                },
+                "Bot: We produce food for Chinchillas",
+                1000,
+                () => {
+                  setTypingStatus("human1");
+                },
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+              cursor={true}
+            />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      <div className="terms">
+        <Image src="/logo.png" alt="logo" className='image' width={400} height={400} />
+        <div className='links'>
+          <Link href={`/`}>Terms of Service</Link>
+          <span>|</span>
+          <Link href={`/`}>Privacy Policy</Link>
+        </div>
+      </div>
     </div>
   );
 }
+
+export default Home
